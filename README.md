@@ -30,6 +30,11 @@ This command runs the program which tests the functionality of opening, writing 
 - `inode.h`: Header file for `inode.c` which includes inode management function declarations.
 - `pack.c`: Contains helper functions for reading and writing multi-byte values.
 - `pack.h`: Header file for `pack.c` with declarations of helper functions.
+- `dir.c`: Contains functions to manage directory operations within the file system.
+- `dir.h`: Header file for `dir.c` with directory management function declarations.
+- `mkfs.c`: Contains functions to create and manage the file system image.
+- `mkfs.h`: Header file for `mkfs.c` with function declarations for file system creation and closure.
+- `common.h`: Header file to house all of the Macros that are used among the source files.
 - `Makefile`: File which builds the executable and handles cleaning operations.
 
 ## Data
@@ -107,6 +112,30 @@ This program simulates file system operations by manipulating data blocks within
 ### `write_inode(struct inode *in)`
 
 - Writes the provided struct inode to disk.
+
+### `mkfs(void)`
+
+- Creates a new file system by initializing inode and block maps, allocating a root directory inode, and setting up initial directory entries (`.` and `..`). This function opens the image file, performs the necessary setup, and then closes the image file.
+
+### `clfs(void)`
+
+- Closes the file system image file. This function is useful to explicitly close the image file after operations are done.
+
+### `directory_open(int inode_num)`
+
+- Opens a directory with the specified inode number and returns a pointer to a `struct directory` representing the open directory. Returns `NULL` if there was an error.
+
+### `directory_get(struct directory *dir, struct directory_entry *ent)`
+
+- Reads the next entry from the open directory and fills out the provided `struct directory_entry` with the entry information. Returns `0` on success, and `-1` on failure (e.g., if the end of the directory is reached).
+
+### `directory_close(struct directory *dir)`
+
+- Closes the open directory and frees the associated resources.
+
+### `ls(void)`
+
+- Lists the contents of the root directory by opening the directory, reading its entries, and printing them out.
 
 ## Notes
 
