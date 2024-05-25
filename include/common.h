@@ -1,0 +1,13 @@
+#ifndef COMMON_H
+#define COMMON_H
+
+#define BLOCK_SIZE 4096
+#define DIRECTORY_ENTRY_SIZE 32
+#define INODE_SIZE 64
+#define INODES_PER_BLOCK (BLOCK_SIZE / INODE_SIZE)
+#define INODE_MAP_BLOCK 1
+#define FREE_MAP_BLOCK 2
+#define FIRST_INODE_BLOCK 3
+#define NUM_INODE_BLOCKS 4
+
+#endif
